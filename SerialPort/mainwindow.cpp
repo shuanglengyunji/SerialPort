@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -73,18 +74,7 @@ void MainWindow::Read_Data()
     //检查对话框中的数据量，过大则清除
     if(ui->ReceiveBox->toPlainText().length()>2000)
         ui->ReceiveBox->clear();
-
 }
-
-//        QString str = ui->ReceiveBox->toPlainText();  //读取接收框现有内容
-//       str+=tr(buf);                               //新接收到的内容接在原有内容后面
-//        ui->ReceiveBox->clear();                      //清空接收框
-//        ui->ReceiveBox->append(str);                  //显示全部内容
-
-//        //限制长度,防止数组过大
-//        if(str.size()>2000)
-//            ui->ReceiveBox->clear();
-
 
 //打开串口按钮
 void MainWindow::on_openButton_clicked()
@@ -94,10 +84,13 @@ void MainWindow::on_openButton_clicked()
         //serial是定义的串口对象指针
 
         serial = new QSerialPort;   //创建一个串口对象
-        //设置串口名
-        serial->setPortName(ui->PortBox->currentText());
-        //打开串口
-        serial->open(QIODevice::ReadWrite);
+        serial->setPortName(ui->PortBox->currentText());//设置串口名
+        if(!serial->open(QIODevice::ReadWrite))//打开串口
+        {
+            QMessageBox::information(this,tr("Error"),tr("COM口打开失败！端口已被占用或端口不存在。"),QMessageBox::Ok);
+            return;
+        }
+
         //设置波特率
         serial->setBaudRate(ui->BaudBox->currentText().toInt());
         //设置数据位数
