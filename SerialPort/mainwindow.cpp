@@ -28,11 +28,14 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->PortBox->addItem(serial.portName());
     }
 
-    //设置波特率下拉菜单默认显示第三项
+    //设置波特率下拉菜单默认显示第0项
     ui->BaudBox->setCurrentIndex(0);
+
     //关闭发送按钮的使能
     ui->sendButton->setEnabled(false);
-    qDebug() << tr("界面设定成功！");
+
+//    qDebug() << tr("界面设定成功！");
+
 }
 
 MainWindow::~MainWindow()
@@ -100,7 +103,7 @@ void MainWindow::on_openButton_clicked()
         }
 
         //设置波特率
-        serial->setBaudRate(ui->BaudBox->currentText().toInt());
+        serial->setBaudRate(ui->BaudBox->currentText().toInt());    //从BaudBox读取波特率，设置到serial
         //设置数据位数
         switch(ui->BitNumBox->currentIndex())
         {
