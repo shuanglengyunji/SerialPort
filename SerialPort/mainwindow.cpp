@@ -18,8 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
             serial.close();
         }
     }
+
     //设置波特率下拉菜单默认显示第三项
-    ui->BaudBox->setCurrentIndex(3);
+    ui->BaudBox->setCurrentIndex(0);
     //关闭发送按钮的使能
     ui->sendButton->setEnabled(false);
     qDebug() << tr("界面设定成功！");
@@ -33,7 +34,7 @@ MainWindow::~MainWindow()
 //清空接受窗口
 void MainWindow::on_clearButton_clicked()
 {
-    ui->textEdit->clear();
+    ui->ReceiveBox->clear();
 }
 
 //发送数据按钮
@@ -41,24 +42,51 @@ void MainWindow::on_sendButton_clicked()
 {
     //serial是窗口类中定义的，这个窗口里的所有对象都可以用
     //这里是调用串口对象的write函数来发送数据
-    serial->write(ui->textEdit_2->toPlainText().toLatin1());
+    serial->write(ui->SendBox->toPlainText().toLatin1());
 }
 
 //读取接收到的数据
 void MainWindow::Read_Data()
 {
-    QByteArray buf;
-    buf = serial->readAll();
+    //读入数据并处理
+    QByteArray buf = serial->readAll();    //读入全部数据
     if(!buf.isEmpty())
     {
-        QString str = ui->textEdit->toPlainText();  //读取接收框现有内容
-        str+=tr(buf);                               //新接收到的内容接在原有内容后面
-        ui->textEdit->clear();                      //清空接收框
-        ui->textEdit->append(str);                  //显示全部内容
+        //存入char数组，读取数组长度
+        unsigned char *data = (unsigned char *)buf.data();
+        int size = buf.size();
+
+        //把接收到的16进制数显示在窗口上
+        QString str;
+        for(int i=0;i<size;i++)
+        {
+            str += QString::number(data[i], 16).toUpper();
+            str += " ";
+        }
+        ui->ReceiveBox->append(str);                  //显示全部内容
+        str.clear();
+
+        delete [] data;  //清除数组空间
     }
     buf.clear();
+
+    //检查对话框中的数据量，过大则清除
+    if(ui->ReceiveBox->toPlainText().length()>2000)
+        ui->ReceiveBox->clear();
+
 }
 
+//        QString str = ui->ReceiveBox->toPlainText();  //读取接收框现有内容
+//       str+=tr(buf);                               //新接收到的内容接在原有内容后面
+//        ui->ReceiveBox->clear();                      //清空接收框
+//        ui->ReceiveBox->append(str);                  //显示全部内容
+
+//        //限制长度,防止数组过大
+//        if(str.size()>2000)
+//            ui->ReceiveBox->clear();
+
+
+//打开串口按钮
 void MainWindow::on_openButton_clicked()
 {
     if(ui->openButton->text()==tr("打开串口"))
@@ -75,8 +103,8 @@ void MainWindow::on_openButton_clicked()
         //设置数据位数
         switch(ui->BitNumBox->currentIndex())
         {
-        case 8: serial->setDataBits(QSerialPort::Data8); break;
-        default: break;
+            case 8: serial->setDataBits(QSerialPort::Data8); break;
+            default: break;
         }
         //设置奇偶校验
         switch(ui->ParityBox->currentIndex())
@@ -101,11 +129,13 @@ void MainWindow::on_openButton_clicked()
         ui->ParityBox->setEnabled(false);
         ui->StopBox->setEnabled(false);
         ui->openButton->setText(tr("关闭串口"));
+
+        //使能发送按钮
         ui->sendButton->setEnabled(true);
 
         //连接信号槽
 
-        //serial的readyRead事件连接到Read_Data函数
+        //接收信号：serial的readyRead事件连接到Read_Data函数
         QObject::connect(serial, &QSerialPort::readyRead, this, &MainWindow::Read_Data);
     }
     else
