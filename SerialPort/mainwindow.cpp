@@ -34,8 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //关闭发送按钮的使能
     ui->sendButton->setEnabled(false);
 
-//    qDebug() << tr("界面设定成功！");
-
 }
 
 MainWindow::~MainWindow()
@@ -113,15 +111,15 @@ void MainWindow::on_openButton_clicked()
         //设置奇偶校验
         switch(ui->ParityBox->currentIndex())
         {
-        case 0: serial->setParity(QSerialPort::NoParity); break;
-        default: break;
+            case 0: serial->setParity(QSerialPort::NoParity); break;
+            default: break;
         }
         //设置停止位
         switch(ui->StopBox->currentIndex())
         {
-        case 1: serial->setStopBits(QSerialPort::OneStop); break;
-        case 2: serial->setStopBits(QSerialPort::TwoStop); break;
-        default: break;
+            case 1: serial->setStopBits(QSerialPort::OneStop); break;
+            case 2: serial->setStopBits(QSerialPort::TwoStop); break;
+            default: break;
         }
         //设置流控制
         serial->setFlowControl(QSerialPort::NoFlowControl);
@@ -132,6 +130,7 @@ void MainWindow::on_openButton_clicked()
         ui->BitNumBox->setEnabled(false);
         ui->ParityBox->setEnabled(false);
         ui->StopBox->setEnabled(false);
+        ui->findport->setEnabled(false);
         ui->openButton->setText(tr("关闭串口"));
 
         //使能发送按钮
@@ -155,6 +154,7 @@ void MainWindow::on_openButton_clicked()
         ui->BitNumBox->setEnabled(true);
         ui->ParityBox->setEnabled(true);
         ui->StopBox->setEnabled(true);
+        ui->findport->setEnabled(true);
         ui->openButton->setText(tr("打开串口"));
         ui->sendButton->setEnabled(false);
     }

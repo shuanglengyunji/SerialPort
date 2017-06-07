@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>四旋翼导航模块辅助程序</string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
@@ -166,11 +166,11 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>图像显示</string>
      </attribute>
      <widget class="QGraphicsView" name="graphicsView">
       <property name="geometry">
@@ -185,7 +185,7 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>数据监控</string>
      </attribute>
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
