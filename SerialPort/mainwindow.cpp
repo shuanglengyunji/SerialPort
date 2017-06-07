@@ -8,16 +8,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //查找可用的串口
+//    //查找可用的串口
+//    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+//    {
+//        QSerialPort serial;
+//        serial.setPort(info);
+//        if(serial.open(QIODevice::ReadWrite))
+//        {
+//            ui->PortBox->addItem(serial.portName());
+//            serial.close();
+//        }
+//    }
+
+    //把所有能用的端口都加入列表，不管是否被占用
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
         QSerialPort serial;
         serial.setPort(info);
-        if(serial.open(QIODevice::ReadWrite))
-        {
-            ui->PortBox->addItem(serial.portName());
-            serial.close();
-        }
+        ui->PortBox->addItem(serial.portName());
     }
 
     //设置波特率下拉菜单默认显示第三项
@@ -146,5 +154,19 @@ void MainWindow::on_openButton_clicked()
         ui->StopBox->setEnabled(true);
         ui->openButton->setText(tr("打开串口"));
         ui->sendButton->setEnabled(false);
+    }
+}
+
+void MainWindow::on_findport_clicked()
+{
+    //清空列表
+    ui->PortBox->clear();
+
+    //把所有能用的端口都加入列表，不管是否被占用
+    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+    {
+        QSerialPort serial;
+        serial.setPort(info);
+        ui->PortBox->addItem(serial.portName());
     }
 }
