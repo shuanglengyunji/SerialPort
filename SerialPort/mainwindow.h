@@ -42,21 +42,25 @@ private:
 
     void Read_Data(QByteArray buf);   //公共的数据处理函数
 
+    //字符串转16进制
+    void StringToHex(QString str, QByteArray &senddata);
+    char ConvertHexChar(char ch);
+
     //SerialPort
     QSerialPort *serial;
-
     bool SerialPortReady_Flag;
 
     void SerialPort_Init();
+    void SerialPort_Send(QByteArray data);
 
     //TCP功能
     QTcpSocket *tcpSocket;//直接建立TCP套接字类
     QString tcpIp;//存储IP地址
     QString tcpPort;//存储端口地址
-
     bool TCPReady_Flag;
 
     void TCP_Init();
+    void TCP_Send(QByteArray data);
 };
 
 #endif // MAINWINDOW_H

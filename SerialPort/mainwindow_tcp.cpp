@@ -59,6 +59,7 @@ void MainWindow::on_connnectButton_clicked()
 
 }
 
+//TCP接收
 void MainWindow::TCP_Read_Data()
 {
     //读入数据并处理
@@ -68,6 +69,12 @@ void MainWindow::TCP_Read_Data()
         Read_Data(buf);
     }
     buf.clear();
+}
+
+//TCP发送
+void MainWindow::TCP_Send(QByteArray data)
+{
+    tcpSocket->write(data);
 }
 
 //连接成功后通过槽调用此函数，处理按钮状态的改变

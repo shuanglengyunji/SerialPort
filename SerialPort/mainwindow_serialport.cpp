@@ -13,6 +13,12 @@ void MainWindow::SerialPort_Read_Data()
     buf.clear();
 }
 
+//串口发送
+void MainWindow::SerialPort_Send(QByteArray data)
+{
+    serial->write(data);
+}
+
 //打开串口按钮
 void MainWindow::on_openButton_clicked()
 {
