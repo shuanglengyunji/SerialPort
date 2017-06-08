@@ -92,7 +92,7 @@ void MainWindow::connectUpdata()
 //断开连接函数
 void MainWindow::disconnectUpdata()
 {
-    ui->connnectButton->setEnabled(true);
+    ui->connnectButton->setText("连接");
     ui->IPLineEdit->setEnabled(true);
     ui->portLineEdit->setEnabled(true);
 
@@ -107,6 +107,9 @@ void MainWindow::ErrorHandle(QAbstractSocket::SocketError)
     QMessageBox::warning (this, tr("Warnning"), tcpSocket->errorString ());
     tcpSocket->close();
 
+    ui->connnectButton->setText("连接");
+    ui->portLineEdit->setEnabled(true);
+    ui->IPLineEdit->setEnabled(true);
     ui->sendButton->setEnabled (false);
 
     TCPReady_Flag = false;
