@@ -23,10 +23,10 @@
       <x>10</x>
       <y>10</y>
       <width>171</width>
-      <height>221</height>
+      <height>191</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="Layout_SerialPort">
      <item>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
@@ -39,7 +39,14 @@
        <item row="0" column="1">
         <widget class="QComboBox" name="PortBox"/>
        </item>
-       <item row="2" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_baud">
+         <property name="text">
+          <string>波特率：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QComboBox" name="BaudBox">
          <property name="currentText">
           <string>57600</string>
@@ -71,14 +78,14 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_BitNum">
          <property name="text">
           <string>数据位：</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="2" column="1">
         <widget class="QComboBox" name="BitNumBox">
          <item>
           <property name="text">
@@ -87,14 +94,14 @@
          </item>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_Parity">
          <property name="text">
           <string>校验位：</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <widget class="QComboBox" name="ParityBox">
          <item>
           <property name="text">
@@ -103,14 +110,14 @@
          </item>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_Stop">
          <property name="text">
           <string>停止位：</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="4" column="1">
         <widget class="QComboBox" name="StopBox">
          <item>
           <property name="text">
@@ -122,13 +129,6 @@
            <string>2</string>
           </property>
          </item>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_baud">
-         <property name="text">
-          <string>波特率：</string>
-         </property>
         </widget>
        </item>
       </layout>
@@ -147,16 +147,9 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="clearButton">
-       <property name="text">
-        <string>清空接收</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
-   <widget class="QTabWidget" name="tabWidget_function">
+   <widget class="QTabWidget" name="Tab_Function">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -166,7 +159,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -200,33 +193,79 @@
        <item row="2" column="0">
         <widget class="QTextEdit" name="ReceiveBox"/>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QPushButton" name="sendButton">
          <property name="text">
           <string>发送数据</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="5" column="0">
         <widget class="QTextEdit" name="SendBox"/>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_2">
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_send">
          <property name="text">
           <string>发送窗口</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="label_receive">
          <property name="text">
           <string>接收窗口</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="clearButton">
+         <property name="text">
+          <string>清空接收</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </widget>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>171</width>
+      <height>77</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="Layout_TCP">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_Port_2">
+       <property name="text">
+        <string>端口号：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="IPLineEdit"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_IP">
+       <property name="text">
+        <string>IP地址：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="portLineEdit"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="connnectButton">
+       <property name="text">
+        <string>连接</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
