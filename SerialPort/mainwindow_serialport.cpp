@@ -68,6 +68,8 @@ void MainWindow::on_openButton_clicked()
 
         //接收信号：serial的readyRead事件连接到Read_Data函数
         QObject::connect(serial, &QSerialPort::readyRead, this, &MainWindow::SerialPort_Read_Data);
+
+        SerialPortReady_Flag = true;    //串口状态标志
     }
     else
     {
@@ -85,6 +87,8 @@ void MainWindow::on_openButton_clicked()
         ui->findport->setEnabled(true);
         ui->openButton->setText(tr("打开串口"));
         ui->sendButton->setEnabled(false);
+
+        SerialPortReady_Flag = false;
     }
 }
 
@@ -113,4 +117,6 @@ void MainWindow::SerialPort_Init()
         serial.setPort(info);
         ui->PortBox->addItem(serial.portName());
     }
+
+    SerialPortReady_Flag = false;
 }
