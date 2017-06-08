@@ -106,7 +106,6 @@ void MainWindow::on_sendButton_clicked()
 void MainWindow::Read_Data(QByteArray buf)
 {
     //buf存入char数组，读取数组长度
-//    unsigned char *data = (unsigned char *)buf.data();
     int size = buf.size();
 
     //把接收到的16进制数显示在窗口上
@@ -118,8 +117,6 @@ void MainWindow::Read_Data(QByteArray buf)
     }
     ui->ReceiveBox->append(str);                  //显示全部内容
     str.clear();
-
-//    delete [] data;  //清除数组空间
 
     buf.clear();
 
