@@ -61,7 +61,13 @@ void MainWindow::on_connnectButton_clicked()
 
 void MainWindow::TCP_Read_Data()
 {
-
+    //读入数据并处理
+    QByteArray buf = tcpSocket->readAll();    //读入全部数据
+    if(!buf.isEmpty())
+    {
+        Read_Data(buf);
+    }
+    buf.clear();
 }
 
 //连接成功后通过槽调用此函数，处理按钮状态的改变

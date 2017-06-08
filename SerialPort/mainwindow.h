@@ -40,10 +40,12 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    void Read_Data(QByteArray buf);   //公共的数据处理函数
+
     //SerialPort
     QSerialPort *serial;
 
-    void SerialPort_Init(void);
+    void SerialPort_Init();
 
     //TCP功能
     QTcpSocket *tcpSocket;//直接建立TCP套接字类

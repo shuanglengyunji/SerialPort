@@ -8,27 +8,9 @@ void MainWindow::SerialPort_Read_Data()
     QByteArray buf = serial->readAll();    //读入全部数据
     if(!buf.isEmpty())
     {
-        //存入char数组，读取数组长度
-        unsigned char *data = (unsigned char *)buf.data();
-        int size = buf.size();
-
-        //把接收到的16进制数显示在窗口上
-        QString str;
-        for(int i=0;i<size;i++)
-        {
-            str += QString::number(data[i], 16).toUpper();
-            str += " ";
-        }
-        ui->ReceiveBox->append(str);                  //显示全部内容
-        str.clear();
-
-        delete [] data;  //清除数组空间
+        Read_Data(buf);
     }
     buf.clear();
-
-    //检查对话框中的数据量，过大则清除
-    if(ui->ReceiveBox->toPlainText().length()>2000)
-        ui->ReceiveBox->clear();
 }
 
 //打开串口按钮
