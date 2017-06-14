@@ -37,6 +37,8 @@ private slots:
     void disconnectUpdata();
     void ErrorHandle(QAbstractSocket::SocketError);    //出现错误
 
+    void on_openimage_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -53,7 +55,7 @@ private:
     void SerialPort_Init();
     void SerialPort_Send(QByteArray data);
 
-    //TCP功能
+    //TCP
     QTcpSocket *tcpSocket;//直接建立TCP套接字类
     QString tcpIp;//存储IP地址
     QString tcpPort;//存储端口地址
@@ -61,6 +63,9 @@ private:
 
     void TCP_Init();
     void TCP_Send(QByteArray data);
+
+    //Image
+    void DisplayImage();
 };
 
 #endif // MAINWINDOW_H

@@ -27,9 +27,9 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="tab_1">
      <attribute name="title">
       <string>设置</string>
      </attribute>
@@ -229,27 +229,43 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="tab_2">
      <attribute name="title">
       <string>图像显示</string>
      </attribute>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QLabel" name="label_image">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>48</width>
-        <height>40</height>
+        <x>20</x>
+        <y>20</y>
+        <width>411</width>
+        <height>341</height>
        </rect>
+      </property>
+      <property name="text">
+       <string> 显示图像</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="openimage">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>打开图像</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_4">
+    <widget class="QWidget" name="tab_3">
      <attribute name="title">
       <string>飞控数据传输</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="tab_4">
      <attribute name="title">
       <string>数据监控</string>
      </attribute>

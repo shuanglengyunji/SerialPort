@@ -125,3 +125,4 @@ void MainWindow::Read_Data(QByteArray buf)
     if(ui->ReceiveBox->toPlainText().length()>2000)
         ui->ReceiveBox->clear();
 }
+
