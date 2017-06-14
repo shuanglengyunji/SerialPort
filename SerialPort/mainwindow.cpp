@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //TCP功能初始化
     TCP_Init();
 
+    //显示图像功能初始化
+    Image_Init();
+
 }
 
 MainWindow::~MainWindow()

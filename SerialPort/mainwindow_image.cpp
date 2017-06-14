@@ -2,28 +2,29 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
-void MainWindow::DisplayImage()
-{
-    int dstSize = 128;
-    int wsize = dstSize * dstSize;    //文件大小
+#define Img_Width   48
+#define Img_Height  40
 
-    QByteArray a(wsize*4,0xF0);
-    QByteArray imageByteArray = a;
-    uchar*  transData = (unsigned char*)imageByteArray.data();
+void MainWindow::Image_Init()
+{
+    //构造DisImage初始化数组
+    QByteArray imageByteArray(Img_Width*Img_Height*4,0x80); //设置初始颜色
+    uchar* transData = (unsigned char*)imageByteArray.data();
 
     //用transData数组生成图像
-    QImage image = QImage(transData, dstSize, dstSize, QImage::Format_RGB32);
+    DisImage = QImage(transData, Img_Width, Img_Height, QImage::Format_RGB32);
 
-    //创建自动变换大小后的QImage对象
-    QImage* imgScaled = new QImage;
-    *imgScaled = image.scaled(ui->label_image->size(),Qt::KeepAspectRatio);
-
-    //显示变换大小后的QImage对象
-    ui->label_image->setPixmap(QPixmap::fromImage(*imgScaled));
-
+    //变换大小并显示
+    QImage* imgScaled = new QImage; //创建自动变换大小后的QImage对象
+    *imgScaled = DisImage.scaled(ui->label_image->size(),Qt::KeepAspectRatio);
+    ui->label_image->setPixmap(QPixmap::fromImage(*imgScaled)); //显示变换大小后的QImage对象
     delete imgScaled;
 
-//    delete img;
+}
+
+void MainWindow::DisplayImage()
+{
+
 }
 
 void MainWindow::on_openimage_clicked()

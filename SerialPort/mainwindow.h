@@ -65,6 +65,10 @@ private:
     void TCP_Send(QByteArray data);
 
     //Image
+    QImage DisImage;
+
+    void Image_Init();
+
     void DisplayImage();
 };
 

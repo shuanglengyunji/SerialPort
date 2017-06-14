@@ -236,10 +236,10 @@
      <widget class="QLabel" name="label_image">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>411</width>
-        <height>341</height>
+        <x>10</x>
+        <y>10</y>
+        <width>480</width>
+        <height>400</height>
        </rect>
       </property>
       <property name="text">
@@ -249,8 +249,8 @@
      <widget class="QPushButton" name="openimage">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>20</y>
+        <x>540</x>
+        <y>30</y>
         <width>75</width>
         <height>23</height>
        </rect>
