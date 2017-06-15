@@ -2,35 +2,47 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
-#define Img_Width   48
-#define Img_Height  40
+
 
 void MainWindow::Image_Init()
 {
-    //构造DisImage初始化数组
-    QByteArray imageByteArray(Img_Width*Img_Height*4,0x80); //设置初始颜色
-    uchar* transData = (unsigned char*)imageByteArray.data();
+    //初始化图像数组
+    for(int i=0;i<Img_Size;i++)
+    {
+        imageByteArray[i] = i/45;
+    }
 
-    //用transData数组生成图像
-    DisImage = QImage(transData, Img_Width, Img_Height, QImage::Format_RGB32);
+    //显示imageByteArray中存储的图像
+    DisplayImage();
 
-    //变换大小并显示
-    QImage* imgScaled = new QImage; //创建自动变换大小后的QImage对象
-    *imgScaled = DisImage.scaled(ui->label_image->size(),Qt::KeepAspectRatio);
-    ui->label_image->setPixmap(QPixmap::fromImage(*imgScaled)); //显示变换大小后的QImage对象
-    delete imgScaled;
+    QTimer *testTimer = new QTimer(this);    //创建定时器
+    connect( testTimer,SIGNAL(timeout()), this, SLOT(testFunction()) ); //将定时器超时信号与槽(功能函数)联系起来
+    testTimer->start(10); //开始运行定时器，定时时间间隔为1000ms
 
+}
+
+void MainWindow::testFunction()
+{
+    for(int i=0;i<Img_Size;i++)
+    {
+        imageByteArray[i]++;
+    }
+    DisplayImage();
 }
 
 void MainWindow::DisplayImage()
 {
-
+    //DisImage变换大小并存入imgScaled
+    imgScaled = QImage(imageByteArray, Img_Width, Img_Height, QImage::Format_RGB888).scaled(ui->label_image->size(),Qt::KeepAspectRatio);
+    ui->label_image->setPixmap(QPixmap::fromImage(imgScaled)); //显示变换大小后的QImage对象
 }
 
 void MainWindow::on_openimage_clicked()
 {
     DisplayImage();
 }
+
+
 
 //    //获取文件路径
 //    QString filename;

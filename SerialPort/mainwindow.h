@@ -7,6 +7,11 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QTcpSocket>
 #include <QMessageBox>
+#include <QTimer>
+
+#define Img_Width   48
+#define Img_Height  40
+#define Img_Size    Img_Width*Img_Height*3
 
 namespace Ui {
 class MainWindow;
@@ -37,7 +42,10 @@ private slots:
     void disconnectUpdata();
     void ErrorHandle(QAbstractSocket::SocketError);    //出现错误
 
+    //Image
     void on_openimage_clicked();
+
+    void testFunction();
 
 private:
     Ui::MainWindow *ui;
@@ -65,7 +73,12 @@ private:
     void TCP_Send(QByteArray data);
 
     //Image
-    QImage DisImage;
+
+
+    //构造DisImage初始化数组
+    unsigned char imageByteArray[Img_Size];  //图像像素数组
+    QImage DisImage;        //像素数组生成的QImage对象
+    QImage imgScaled;       //DisImage缩放后实际显示的图像
 
     void Image_Init();
 
