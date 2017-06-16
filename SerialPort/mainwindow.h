@@ -43,15 +43,12 @@ private slots:
     void ErrorHandle(QAbstractSocket::SocketError);    //出现错误
 
     //Image
-    void on_openimage_clicked();
-
-    void testFunction();
-
     void on_pathchangeButton_clicked();
-
     void on_checkBox_imagesave_stateChanged(int arg1);
+    void on_numberclearButton_clicked();
 
-    void on_pathchangeButton_2_clicked();
+    void on_openimage_clicked();
+    void testFunction();
 
 private:
     Ui::MainWindow *ui;
@@ -83,13 +80,11 @@ private:
     bool image_save_flag;
     int image_counter;
 
-    //构造DisImage初始化数组
     unsigned char imageByteArray[Img_Size];  //图像像素数组
     QImage DisImage;        //像素数组生成的QImage对象
     QImage imgScaled;       //DisImage缩放后实际显示的图像
 
     void Image_Init();
-
     void DisplayImage();
 };
 

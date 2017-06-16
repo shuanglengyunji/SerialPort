@@ -314,7 +314,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="pathchangeButton_2">
+     <widget class="QPushButton" name="numberclearButton">
       <property name="geometry">
        <rect>
         <x>640</x>

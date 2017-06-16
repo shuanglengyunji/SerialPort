@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
-
-
 void MainWindow::Image_Init()
 {
     //设定初始文件路径
@@ -37,27 +35,14 @@ void MainWindow::Image_Init()
 
 }
 
-//测试用函数
-void MainWindow::testFunction()
-{
-    for(int i=0;i<Img_Size;i++)
-    {
-        imageByteArray[i]++;
-    }
-    DisplayImage();
-}
-
-//按钮相应函数
-void MainWindow::on_openimage_clicked()
-{
-    DisplayImage();
-}
-
 //将数组中的图像显示在屏幕上
 void MainWindow::DisplayImage()
 {
-    //DisImage变换大小并存入imgScaled
-    imgScaled = QImage(imageByteArray, Img_Width, Img_Height, QImage::Format_RGB888).scaled(ui->label_image->size(),Qt::KeepAspectRatio);
+    //图像数组数据保存到DisImage图像变量
+    DisImage = QImage(imageByteArray, Img_Width, Img_Height, QImage::Format_RGB888);
+
+    //显示图像
+    imgScaled = DisImage.scaled(ui->label_image->size(),Qt::KeepAspectRatio);       //DisImage变换大小并存入imgScaled
     ui->label_image->setPixmap(QPixmap::fromImage(imgScaled)); //显示变换大小后的QImage对象
 
     if(image_save_flag)
@@ -75,8 +60,8 @@ void MainWindow::DisplayImage()
         ui->lineEdit_imagenunmber->setText(tmp);
 
         //保存图片
-        QPixmap imgtmp = QPixmap::fromImage(imgScaled);
-        imgtmp.save(filename,"bmp",100);
+        QPixmap imgtmp = QPixmap::fromImage(DisImage);
+        imgtmp.save(filename,"jpg",100);
     }
 }
 
@@ -101,6 +86,18 @@ void MainWindow::on_checkBox_imagesave_stateChanged(int arg1)
     image_save_flag = arg1;
 }
 
+//图像编号计数器清零按钮
+void MainWindow::on_numberclearButton_clicked()
+{
+    //图片计数变量清零
+    image_counter = 0;
+
+    //更新图片编号
+    QString tmp;
+    tmp.setNum(image_counter);
+    ui->lineEdit_imagenunmber->setText(tmp);
+}
+
 
 
 //    //获取文件路径
@@ -119,3 +116,19 @@ void MainWindow::on_checkBox_imagesave_stateChanged(int arg1)
 //        delete img;
 //        return;
 //    }
+
+//测试用函数
+void MainWindow::testFunction()
+{
+    for(int i=0;i<Img_Size;i++)
+    {
+        imageByteArray[i]++;
+    }
+    DisplayImage();
+}
+
+//按钮相应函数
+void MainWindow::on_openimage_clicked()
+{
+    DisplayImage();
+}
