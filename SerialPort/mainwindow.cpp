@@ -129,3 +129,14 @@ void MainWindow::Read_Data(QByteArray buf)
         ui->ReceiveBox->clear();
 }
 
+
+void MainWindow::on_pathchangeButton_2_clicked()
+{
+    //图片计数变量清零
+    image_counter = 0;
+
+    //更新图片编号
+    QString tmp;
+    tmp.setNum(image_counter);
+    ui->lineEdit_imagenunmber->setText(tmp);
+}

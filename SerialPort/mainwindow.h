@@ -47,6 +47,12 @@ private slots:
 
     void testFunction();
 
+    void on_pathchangeButton_clicked();
+
+    void on_checkBox_imagesave_stateChanged(int arg1);
+
+    void on_pathchangeButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -73,7 +79,9 @@ private:
     void TCP_Send(QByteArray data);
 
     //Image
-
+    QString file_path;  //文件保存路径
+    bool image_save_flag;
+    int image_counter;
 
     //构造DisImage初始化数组
     unsigned char imageByteArray[Img_Size];  //图像像素数组
