@@ -9,8 +9,8 @@
 #include <QMessageBox>
 #include <QTimer>
 
-#define Img_Width   48
-#define Img_Height  40
+#define Img_Width   80
+#define Img_Height  48
 #define Img_Size    Img_Width*Img_Height*3
 
 namespace Ui {
