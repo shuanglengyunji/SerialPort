@@ -2,9 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QDebug>
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
 #include <QTcpSocket>
 #include <QMessageBox>
 #include <QTimer>
@@ -32,7 +29,6 @@ private slots:
     //SerialPort
     void on_openButton_clicked();
     void on_findport_clicked();
-    void SerialPort_Read_Data();
 
     //TCP
     void on_connnectButton_clicked();
@@ -64,11 +60,6 @@ private:
     char ConvertHexChar(char ch);
 
     //SerialPort
-    QSerialPort *serial;
-    bool SerialPortReady_Flag;
-
-    void SerialPort_Init();
-    void SerialPort_Send(QByteArray data);
 
     //TCP
     QTcpSocket *tcpSocket;//直接建立TCP套接字类

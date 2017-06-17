@@ -10,9 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //界面整体初始化函数
     Tab_Init();
 
-    //串口相关功能初始化
-    SerialPort_Init();
-
     //TCP功能初始化
     TCP_Init();
 
@@ -102,8 +99,8 @@ void MainWindow::on_sendButton_clicked()
     if(TCPReady_Flag)
         TCP_Send(data);
 
-    if(SerialPortReady_Flag)
-        SerialPort_Send(data);
+//    if(SerialPortReady_Flag)
+//        SerialPort_Send(data);
 }
 
 //所有接收到的数据会被传输到这个函数中处理
@@ -145,5 +142,15 @@ void MainWindow::Tab_Init()
 void MainWindow::on_Tab_Function_currentChanged(int index)
 {
     Tab_Num = index;
+
+}
+
+void MainWindow::on_openButton_clicked()
+{
+
+}
+
+void MainWindow::on_findport_clicked()
+{
 
 }
