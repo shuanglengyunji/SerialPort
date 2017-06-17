@@ -17,7 +17,9 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mainwindow_serialport.cpp \
     mainwindow_tcp.cpp \
-    mainwindow_image.cpp
+    mainwindow_image.cpp \
+    mainwindow_datadisplay.cpp \
+    mainwindow_tools.cpp
 
 HEADERS  += mainwindow.h
 

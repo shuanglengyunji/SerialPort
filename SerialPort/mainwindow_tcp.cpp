@@ -37,16 +37,9 @@ void MainWindow::on_connnectButton_clicked()
 
         //建立槽
 
-        //错误信号
-        connect(tcpSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(ErrorHandle(QAbstractSocket::SocketError)));
-
         //连接成功信号
         //connected()信号是在成功建立同host的连接后发出的
         connect(tcpSocket,SIGNAL(connected()),this,SLOT(connectUpdata()));
-
-        //读取信息信号
-        //收到信息时发出readyRead()信号
-        connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(TCP_Read_Data()));
     }
     else
     {
@@ -66,15 +59,23 @@ void MainWindow::TCP_Read_Data()
     QByteArray buf = tcpSocket->readAll();    //读入全部数据
     if(!buf.isEmpty())
     {
-        Read_Data(buf);
+        //获取长度
+        int size = buf.size();
+
+        //按字节发出
+        for(int i=0;i<size;i++)
+        {
+            emit TCP_signal((unsigned char)buf[i]); //数据转发给程序
+        }
     }
     buf.clear();
 }
 
 //TCP发送
-void MainWindow::TCP_Send(QByteArray data)
+void MainWindow::TCP_Send_Data(unsigned char data)
 {
-    tcpSocket->write(data);
+    QByteArray tmp(1,data);
+    tcpSocket->write(tmp);
 }
 
 //连接成功后通过槽调用此函数，处理按钮状态的改变
@@ -87,6 +88,16 @@ void MainWindow::connectUpdata()
     ui->sendButton->setEnabled(true);       //发送按钮
 
     TCPReady_Flag=true;
+
+    //读取信息信号
+    //收到信息时发出readyRead()信号
+    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(TCP_Read_Data()));
+    connect(this,TCP_signal,this,Datadisplay_Read_Data);
+    connect(this,Datadisplay_signal,this,TCP_Send_Data);
+
+    //错误信号
+    connect(tcpSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(ErrorHandle(QAbstractSocket::SocketError)));
+
 }
 
 //断开连接函数

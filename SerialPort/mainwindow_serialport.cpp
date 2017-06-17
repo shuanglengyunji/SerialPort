@@ -1,22 +1,30 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//读取并处理接收到的数据
+//读取并处理接收到的数据（串口模块将从串口收到的数据发给程序）
 void MainWindow::SerialPort_Read_Data()
 {
     //读入数据并处理
     QByteArray buf = serial->readAll();    //读入全部数据
     if(!buf.isEmpty())
     {
-        Read_Data(buf);
+        //获取长度
+        int size = buf.size();
+
+        //按字节发出
+        for(int i=0;i<size;i++)
+        {
+            emit SeriPort_signal((unsigned char)buf[i]);    //数据转发给程序
+        }
     }
     buf.clear();
 }
 
-//串口发送
-void MainWindow::SerialPort_Send(QByteArray data)
+//串口发送（串口模块收到程序给的数据）
+void MainWindow::SerialPort_Send_Data(unsigned char data)
 {
-    serial->write(data);
+    QByteArray tmp(1,data);
+    serial->write(tmp);
 }
 
 //打开串口按钮
@@ -73,7 +81,9 @@ void MainWindow::on_openButton_clicked()
         //连接信号槽
 
         //接收信号：serial的readyRead事件连接到Read_Data函数
-        QObject::connect(serial, &QSerialPort::readyRead, this, &MainWindow::SerialPort_Read_Data);
+        connect(serial, &QSerialPort::readyRead, this, &MainWindow::SerialPort_Read_Data);
+        connect(this,SeriPort_signal,this,Datadisplay_Read_Data);
+        connect(this,Datadisplay_signal,this,SerialPort_Send_Data);
 
         SerialPortReady_Flag = true;    //串口状态标志
     }
