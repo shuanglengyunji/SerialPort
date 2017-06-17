@@ -50,10 +50,14 @@ private slots:
     void on_openimage_clicked();
     void testFunction();
 
+    void on_Tab_Function_currentChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 
+    void Tab_Init();
     void Read_Data(QByteArray buf);   //公共的数据处理函数
+    int Tab_Num;
 
     //字符串转16进制
     void StringToHex(QString str, QByteArray &senddata);

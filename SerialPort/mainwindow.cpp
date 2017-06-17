@@ -7,8 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //关闭发送按钮的使能
-    ui->sendButton->setEnabled(false);
+    //界面整体初始化函数
+    Tab_Init();
 
     //串口相关功能初始化
     SerialPort_Init();
@@ -106,7 +106,7 @@ void MainWindow::on_sendButton_clicked()
         SerialPort_Send(data);
 }
 
-//所以接收到的数据会被传输到这个函数中处理
+//所有接收到的数据会被传输到这个函数中处理
 void MainWindow::Read_Data(QByteArray buf)
 {
     //buf存入char数组，读取数组长度
@@ -130,3 +130,20 @@ void MainWindow::Read_Data(QByteArray buf)
 }
 
 
+void MainWindow::Tab_Init()
+{
+    //设置默认标签为标签1(Tab_Num是0)
+    ui->Tab_Function->setCurrentWidget(ui->tab_1);
+
+    Tab_Num = 0;        //从0开始编号
+
+    //关闭发送按钮的使能
+    ui->sendButton->setEnabled(false);
+}
+
+//识别当前界面Tab
+void MainWindow::on_Tab_Function_currentChanged(int index)
+{
+    Tab_Num = index;
+
+}
