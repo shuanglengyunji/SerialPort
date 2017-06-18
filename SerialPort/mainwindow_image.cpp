@@ -25,23 +25,25 @@ void MainWindow::Image_Init()
     ui->lineEdit_imagenunmber->setText(tmp);
 
     //初始化图像数组
-    for(int i=0;i<Img_Size;i++)
+    for(int i=0;i<Img_Buf_Size;i++)
     {
         imageByteArray[i] = i/45;
     }
     //显示imageByteArray中存储的图像
     DisplayImage();
 
-    //测试用定时器
-    QTimer *testTimer = new QTimer(this);    //创建定时器
-    connect( testTimer,SIGNAL(timeout()), this, SLOT(testFunction()) ); //将定时器超时信号与槽(功能函数)联系起来
-    testTimer->start(10); //开始运行定时器，定时时间间隔为1000ms
+//    //测试用定时器
+//    QTimer *testTimer = new QTimer(this);    //创建定时器
+//    connect( testTimer,SIGNAL(timeout()), this, SLOT(testFunction()) ); //将定时器超时信号与槽(功能函数)联系起来
+//    testTimer->start(10); //开始运行定时器，定时时间间隔为1000ms
 
 }
 
 //将数组中的图像显示在屏幕上
 void MainWindow::DisplayImage()
 {
+    /*从imageByteArray提取数据，更新DisImage和imgScaled，然后显示和保存*/
+
     //图像数组数据保存到DisImage图像变量
     DisImage = QImage(imageByteArray, Img_Width, Img_Height, QImage::Format_RGB888);
 
@@ -66,6 +68,15 @@ void MainWindow::DisplayImage()
         //保存图片
         QPixmap imgtmp = QPixmap::fromImage(DisImage);
         imgtmp.save(filename,"jpg",100);
+    }
+}
+
+void MainWindow::GetImage()
+{
+    /*从imageTmpArray提取数据更新imageByteArray*/
+    for(int i=0;i<Img_Size;i++)
+    {
+        imageByteArray[i*3] = imageByteArray[i*3+1] = imageByteArray[i*3+2] = imageTmpArray[i];
     }
 }
 
@@ -102,6 +113,48 @@ void MainWindow::on_numberclearButton_clicked()
     ui->lineEdit_imagenunmber->setText(tmp);
 }
 
+//Image接收图像数据的槽函数
+void MainWindow::Image_Read_Data(unsigned char data)
+{
+    static int mycase = 0;
+    static int counter = 0; //记录一个包里面的数据位数
+
+    switch(mycase)
+    {
+    case 0:
+        if(data == 0x01)    //包头1
+            mycase = 1;
+        break;
+    case 1:
+        if(data == 0xFE)    //必须连续接入包头2
+            mycase = 2;
+        else                //否则包头无效
+            mycase = 0;
+        break;
+    case 2:                 //解包
+        imageTmpArray[counter] = data;
+        counter++;  //计数累加
+        if(counter == Img_Size) //按照帧长度收满一帧，开始检查包尾
+            mycase = 3;
+        break;
+    case 3:
+        if(data == 0xFE)    //验证包尾
+            mycase = 4;
+        else
+            mycase = 0;
+        break;
+    case 4:
+        if(data == 0x01)    //包尾验证通过，可以采纳数据
+        {
+            GetImage();     //更新图像数组
+            DisplayImage(); //显示、保存图像
+        }
+        mycase = 0;   //接收状态都是要归零的
+        break;
+    default:
+        break;
+    }
+}
 
 
 //    //获取文件路径
@@ -124,11 +177,11 @@ void MainWindow::on_numberclearButton_clicked()
 //测试用函数
 void MainWindow::testFunction()
 {
-    for(int i=0;i<Img_Size;i++)
-    {
-        imageByteArray[i]++;
-    }
-    DisplayImage();
+//    for(int i=0;i<Img_Buf_Size;i++)
+//    {
+//        imageByteArray[i]++;
+//    }
+//    DisplayImage();
 }
 
 //按钮相应函数

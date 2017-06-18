@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_1">
      <attribute name="title">
@@ -249,14 +249,14 @@
      <widget class="QPushButton" name="openimage">
       <property name="geometry">
        <rect>
-        <x>640</x>
-        <y>390</y>
-        <width>75</width>
+        <x>90</x>
+        <y>340</y>
+        <width>91</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>打开图像</string>
+       <string> 保存当前图像</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pathchangeButton">

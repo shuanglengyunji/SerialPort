@@ -91,9 +91,10 @@ void MainWindow::connectUpdata()
 
     //读取信息信号
     //收到信息时发出readyRead()信号
-    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(TCP_Read_Data()));
-    connect(this,TCP_signal,this,Datadisplay_Read_Data);
-    connect(this,Datadisplay_signal,this,TCP_Send_Data);
+    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(TCP_Read_Data()));  //TCP对象给信号用的槽
+    connect(this,TCP_signal,this,Datadisplay_Read_Data);    //向程序内发送的信号连接到数据监控窗口
+    connect(this,TCP_signal,this,Image_Read_Data);          //向程序内发送信号的槽连接到图像显示窗口
+    connect(this,Datadisplay_signal,this,TCP_Send_Data);    //从程序中接收数据的槽
 
     //错误信号
     connect(tcpSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(ErrorHandle(QAbstractSocket::SocketError)));

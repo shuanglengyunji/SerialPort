@@ -12,12 +12,11 @@ void MainWindow::on_sendButton_clicked()
 {
     QString str = ui->SendBox->text();//从LineEdit得到字符串
 
-    int len = str.length();
-
+    //删除空格
     str.remove(QChar(' '), Qt::CaseSensitive);
 
     //将str转换为16进制数，存入data
-    len = str.length();
+    int len = str.length();
     if(len%2 == 1)   //如果发送的数据个数为奇数的，则在前面最后落单的字符前添加一个字符0
     {
         str = str.insert(len-1,'0'); //insert(int position, const QString & str)

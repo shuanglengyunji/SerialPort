@@ -83,6 +83,7 @@ void MainWindow::on_openButton_clicked()
         //接收信号：serial的readyRead事件连接到Read_Data函数
         connect(serial, &QSerialPort::readyRead, this, &MainWindow::SerialPort_Read_Data);
         connect(this,SeriPort_signal,this,Datadisplay_Read_Data);
+        connect(this,SeriPort_signal,this,Image_Read_Data);          //向程序内发送信号的槽连接到图像显示窗口
         connect(this,Datadisplay_signal,this,SerialPort_Send_Data);
 
         SerialPortReady_Flag = true;    //串口状态标志

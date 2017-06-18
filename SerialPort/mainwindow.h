@@ -10,9 +10,10 @@
 #include <QTimer>
 #include <QThread>
 
-#define Img_Width   80
-#define Img_Height  48
-#define Img_Size    Img_Width*Img_Height*3
+#define Img_Width       80
+#define Img_Height      48
+#define Img_Size        Img_Width*Img_Height
+#define Img_Buf_Size    Img_Size*3
 
 namespace Ui {
 class MainWindow;
@@ -32,7 +33,6 @@ public:
 /*UI*/
 signals:
     void Datadisplay_signal(unsigned char data);   //数据监控窗口的数据发送信号
-
 private slots:
     void on_Tab_Function_currentChanged(int index);
     //Settting
@@ -45,6 +45,7 @@ private slots:
     void on_numberclearButton_clicked();                //清空计数
     void on_openimage_clicked();
     void testFunction();
+    void Image_Read_Data(unsigned char data);
     //DataDisplay
     void on_clearButton_clicked();  //清空接收
     void on_sendButton_clicked();   //发送按钮
@@ -58,11 +59,13 @@ private:
     QString file_path;  //文件保存路径
     bool image_save_flag;
     int image_counter;
-    unsigned char imageByteArray[Img_Size];  //图像像素数组
+    unsigned char imageTmpArray[Img_Size];      //临时存储发来的图像数据用的数组
+    unsigned char imageByteArray[Img_Buf_Size];  //图像像素数组
     QImage DisImage;        //像素数组生成的QImage对象
     QImage imgScaled;       //DisImage缩放后实际显示的图像
     void Image_Init();
     void DisplayImage();
+    void GetImage();
     //DataDisplay
 
 /*SerialPort*/
