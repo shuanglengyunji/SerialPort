@@ -32,30 +32,31 @@ public:
 
 /*UI*/
 signals:
-    void Datadisplay_signal(unsigned char data);   //数据监控窗口的数据发送信号
 private slots:
     void on_Tab_Function_currentChanged(int index);
-    //Settting
+private:
+    Ui::MainWindow *ui;
+    void Tab_Init();
+    int Tab_Num;
+
+//Settting
+signals:
+private slots:
     void on_openButton_clicked();   //开启窗口按钮
     void on_findport_clicked();     //搜索串口按钮
     void on_connnectButton_clicked();   //连接按钮
-    //Image
+private:
+
+//Image
+signals:
+private slots:
     void on_pathchangeButton_clicked();                 //路径选择
     void on_checkBox_imagesave_stateChanged(int arg1);  //保存图片
     void on_numberclearButton_clicked();                //清空计数
     void on_openimage_clicked();
     void testFunction();
     void Image_Read_Data(unsigned char data);
-    //DataDisplay
-    void on_clearButton_clicked();  //清空接收
-    void on_sendButton_clicked();   //发送按钮
-    void Datadisplay_Read_Data(unsigned char data);   //数据监控窗口的数据输入信号
 private:
-    Ui::MainWindow *ui;
-    void Tab_Init();
-    int Tab_Num;
-    //Setting
-    //Image
     QString file_path;  //文件保存路径
     bool image_save_flag;
     int image_counter;
@@ -66,7 +67,16 @@ private:
     void Image_Init();
     void DisplayImage();
     void GetImage();
-    //DataDisplay
+
+//DataDisplay
+signals:
+    void Datadisplay_signal(unsigned char data);   //数据监控窗口的数据发送信号
+private slots:
+    void on_clearButton_clicked();  //清空接收
+    void on_sendButton_clicked();   //发送按钮
+    void Datadisplay_Read_Data(unsigned char data);   //数据监控窗口的数据输入信号
+private:
+
 
 /*SerialPort*/
 signals:
