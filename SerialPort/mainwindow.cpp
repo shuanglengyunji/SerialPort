@@ -10,15 +10,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //界面整体初始化函数
     Tab_Init();
 
-    //串口相关功能初始化
-    SerialPort_Init();
+//    //串口相关功能初始化
+//    SerialPort_Init();
 
     //TCP功能初始化
     TCP_Init();
 
     //显示图像功能初始化
     Image_Init();
-
 }
 
 MainWindow::~MainWindow()
@@ -39,5 +38,4 @@ void MainWindow::Tab_Init()
 void MainWindow::on_Tab_Function_currentChanged(int index)
 {
     Tab_Num = index;
-
 }
