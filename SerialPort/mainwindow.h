@@ -46,6 +46,8 @@ private slots:
     void on_findport_clicked();     //搜索串口按钮
     void on_connnectButton_clicked();   //连接按钮
 private:
+    void disable_serialport_setting_panel();
+    void enable_serialport_setting_panel();
 
 //Image
 signals:

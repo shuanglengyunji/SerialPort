@@ -67,13 +67,7 @@ void MainWindow::on_openButton_clicked()
         serial->setFlowControl(QSerialPort::NoFlowControl);
 
         //关闭设置菜单使能
-        ui->PortBox->setEnabled(false);
-        ui->BaudBox->setEnabled(false);
-        ui->BitNumBox->setEnabled(false);
-        ui->ParityBox->setEnabled(false);
-        ui->StopBox->setEnabled(false);
-        ui->findport->setEnabled(false);
-        ui->openButton->setText(tr("关闭串口"));
+        disable_serialport_setting_panel();
 
         //使能发送按钮
         ui->sendButton->setEnabled(true);
@@ -96,18 +90,12 @@ void MainWindow::on_openButton_clicked()
         serial->deleteLater();
 
         //恢复设置使能
-        ui->PortBox->setEnabled(true);
-        ui->BaudBox->setEnabled(true);
-        ui->BitNumBox->setEnabled(true);
-        ui->ParityBox->setEnabled(true);
-        ui->StopBox->setEnabled(true);
-        ui->findport->setEnabled(true);
-        ui->openButton->setText(tr("打开串口"));
-        ui->sendButton->setEnabled(false);
+        enable_serialport_setting_panel();
 
         SerialPortReady_Flag = false;
     }
 }
+
 
 //更新可用串口列表
 void MainWindow::on_findport_clicked()
