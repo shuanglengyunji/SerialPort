@@ -33,9 +33,6 @@ void MainWindow::Tab_Init()
     ui->Tab_Function->setCurrentWidget(ui->tab_1);
 
     Tab_Num = 0;        //从0开始编号
-
-    //关闭发送按钮的使能
-    ui->sendButton->setEnabled(false);
 }
 
 //识别当前界面Tab

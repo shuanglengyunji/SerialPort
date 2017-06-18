@@ -85,8 +85,6 @@ void MainWindow::connectUpdata()
     ui->IPLineEdit->setEnabled(false);      //地址框编辑禁止
     ui->portLineEdit->setEnabled(false);    //端口号编辑禁止
 
-    ui->sendButton->setEnabled(true);       //发送按钮
-
     TCPReady_Flag=true;
 
     //读取信息信号
@@ -108,8 +106,6 @@ void MainWindow::disconnectUpdata()
     ui->IPLineEdit->setEnabled(true);
     ui->portLineEdit->setEnabled(true);
 
-    ui->sendButton->setEnabled(false);
-
     TCPReady_Flag=false;
 }
 
@@ -122,7 +118,6 @@ void MainWindow::ErrorHandle(QAbstractSocket::SocketError)
     ui->connnectButton->setText("连接");
     ui->portLineEdit->setEnabled(true);
     ui->IPLineEdit->setEnabled(true);
-    ui->sendButton->setEnabled (false);
 
     TCPReady_Flag = false;
 }

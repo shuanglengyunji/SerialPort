@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QThread>
+#include <QList>
 
 #define Img_Width       80
 #define Img_Height      48
@@ -41,10 +42,12 @@ private:
 
 //Settting
 signals:
+    void refresh_serialport_name();
 private slots:
     void on_openButton_clicked();   //开启窗口按钮
     void on_findport_clicked();     //搜索串口按钮
     void on_connnectButton_clicked();   //连接按钮
+    void add_portbox_item(QString PortName);    //向可用串口列表添加内容
 private:
     void disable_serialport_setting_panel();
     void enable_serialport_setting_panel();
@@ -83,9 +86,13 @@ private:
 /*SerialPort*/
 signals:
     void SeriPort_signal(unsigned char data);
+    void SeriPort_Refesh_signal(QString PortName);  //发送可用串口名称
 private slots:
     void SerialPort_Read_Data();    //串口读取数据槽函数（连接至串口控件收到数据信号）
     void SerialPort_Send_Data(unsigned char data);
+    void SerialPort_Open(QString PortName, int Baud, int BitNum, int Parity, int StopBitNum);
+    void SerialPort_Close();
+    void SerialPort_Refresh();
 private:
     QSerialPort *serial;
     bool SerialPortReady_Flag;
