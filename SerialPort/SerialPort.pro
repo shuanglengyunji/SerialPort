@@ -20,8 +20,10 @@ SOURCES += main.cpp\
     mainwindow_image.cpp \
     mainwindow_datadisplay.cpp \
     mainwindow_tools.cpp \
-    mainwindow_setting.cpp
+    mainwindow_setting.cpp \
+    serialport.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    serialport.h
 
 FORMS    += mainwindow.ui
