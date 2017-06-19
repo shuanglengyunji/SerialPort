@@ -4,11 +4,6 @@
 
 void MainWindow::Image_Init()
 {
-//    //将label_image对象放到一个新的线程处理
-//    QThread * ImageThr = new QThread;
-//    ui->label_image->moveToThread(ImageThr);
-//    ImageThr->start();
-
     //设定初始文件路径
     QString file_full = QCoreApplication::applicationFilePath();    //获取路径信息
     QFileInfo fi = QFileInfo(file_full);                            //建立文件信息对象

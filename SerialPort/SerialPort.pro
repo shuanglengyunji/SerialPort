@@ -15,7 +15,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mainwindow_serialport.cpp \
     mainwindow_tcp.cpp \
     mainwindow_image.cpp \
     mainwindow_datadisplay.cpp \

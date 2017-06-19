@@ -32,18 +32,25 @@ void SerialPort::SerialPort_Send_Data(unsigned char data)
     serial->write(tmp);
 }
 
-void SerialPort::SerialPort_Close()
+bool SerialPort::SerialPort_Close()
 {
+    if(!SerialPortReady_Flag)
+        return false;
+
     //关闭串口
     serial->clear();
     serial->close();
     serial->deleteLater();
 
     SerialPortReady_Flag = false;
+
+    return true;
 }
 
-void SerialPort::SerialPort_Open(QString PortName,int Baud,int BitNum,int Parity,int StopBitNum)
+bool SerialPort::SerialPort_Open(QString PortName,int Baud,int BitNum,int Parity,int StopBitNum)
 {
+    if(SerialPortReady_Flag)
+        return false;
 
     //serial是定义的串口对象指针
     serial = new QSerialPort;   //创建一个串口对象
@@ -53,8 +60,7 @@ void SerialPort::SerialPort_Open(QString PortName,int Baud,int BitNum,int Parity
 
     if(!serial->open(QIODevice::ReadWrite))//打开串口
     {
-        QMessageBox::information(this,tr("Error"),tr("COM口打开失败！端口已被占用或端口不存在。"),QMessageBox::Ok);
-        return;
+        return false;
     }
 
     //设置波特率
@@ -86,14 +92,12 @@ void SerialPort::SerialPort_Open(QString PortName,int Baud,int BitNum,int Parity
     serial->setFlowControl(QSerialPort::NoFlowControl);
 
     //连接信号槽
-
     //接收信号：serial的readyRead事件连接到Read_Data函数
-    connect(serial, &QSerialPort::readyRead, this, &MainWindow::SerialPort_Read_Data);
-    connect(this,SeriPort_signal,this,Datadisplay_Read_Data);
-    connect(this,SeriPort_signal,this,Image_Read_Data);          //向程序内发送信号的槽连接到图像显示窗口
-    connect(this,Datadisplay_signal,this,SerialPort_Send_Data);
+    connect(serial, &QSerialPort::readyRead, this, &SerialPort::SerialPort_Read_Data);
 
     SerialPortReady_Flag = true;    //串口状态标志
+
+    return true;
 }
 
 void SerialPort::SerialPort_Refresh()

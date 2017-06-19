@@ -18,6 +18,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //显示图像功能初始化
     Image_Init();
+
+    QThread * Portthread = new QThread(this);
+    port.moveToThread(Portthread);
+    Portthread->start();
+
+    connect(this,SIGNAL(refresh_serialport_name()),&port,SLOT(SerialPort_Refresh()));  //连接到SerialPort的槽
+
+    //port对象发送可用传口号
+    connect(&port,SerialPort::SeriPort_Refesh_signal,this,MainWindow::add_portbox_item);
+
+    //port对象发送
+    connect(&port,SerialPort::SeriPort_signal,this,Datadisplay_Read_Data);
+    connect(&port,SerialPort::SeriPort_signal,this,Image_Read_Data);          //向程序内发送信号的槽连接到图像显示窗口
+
+    //向port发送内容
+    connect(this,Datadisplay_signal,&port,SerialPort::SerialPort_Send_Data);
 }
 
 MainWindow::~MainWindow()

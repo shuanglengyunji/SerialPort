@@ -6,7 +6,7 @@ void MainWindow::on_openButton_clicked()
 {
     if(ui->openButton->text()==tr("打开串口"))
     {
-
+        //获取串口设置参数
         QString Port = ui->PortBox->currentText();
         int Baud = ui->BaudBox->currentText().toInt();
         int BitNum = ui->BitNumBox->currentIndex();
@@ -14,7 +14,8 @@ void MainWindow::on_openButton_clicked()
         int StopBitNum = ui->StopBox->currentIndex();
 
         //打开串口
-        SerialPort_Open(Port,Baud,BitNum,Parity,StopBitNum);
+        if(!port.SerialPort_Open(Port,Baud,BitNum,Parity,StopBitNum))
+            return;
 
         //禁用设置菜单
         disable_serialport_setting_panel();
@@ -22,7 +23,8 @@ void MainWindow::on_openButton_clicked()
     else
     {
         //关闭串口
-        SerialPort_Close();
+        if(!port.SerialPort_Close())
+            return;
 
         //恢复设置使能
         enable_serialport_setting_panel();
@@ -34,9 +36,6 @@ void MainWindow::on_findport_clicked()
 {
     //清空COM口列表
     ui->PortBox->clear();
-
-    connect(this,refresh_serialport_name,this,SerialPort_Refresh);
-    connect(this,SeriPort_Refesh_signal,this,add_portbox_item);
 
     emit refresh_serialport_name();
 }

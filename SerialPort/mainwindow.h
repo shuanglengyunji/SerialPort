@@ -116,6 +116,8 @@ private:
     bool TCPReady_Flag;
     void TCP_Init();
 
+    SerialPort port;
+
 };
 
 #endif // MAINWINDOW_H
