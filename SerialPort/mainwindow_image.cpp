@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
@@ -130,7 +130,11 @@ void MainWindow::Image_Read_Data(unsigned char data)
         imageTmpArray[counter] = data;
         counter++;  //计数累加
         if(counter == Img_Size) //按照帧长度收满一帧，开始检查包尾
+        {
             mycase = 3;
+            counter = 0;
+        }
+
         break;
     case 3:
         if(data == 0xFE)    //验证包尾
